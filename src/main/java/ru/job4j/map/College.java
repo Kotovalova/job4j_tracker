@@ -21,13 +21,13 @@ public class College {
 
     public Optional<Subject> findBySubjectName(String account, String name) {
         Optional<Student> a = findByAccount(account);
-        if (a != null) {
-            return students.get(a)
+        if (a.isPresent()) {
+            return students.get(a.get())
                     .stream()
                     .filter(s -> s.getName().equals(name))
                     .findFirst();
         }
-        return null;
+        return Optional.empty();
     }
 
     public static void main(String[] args) {

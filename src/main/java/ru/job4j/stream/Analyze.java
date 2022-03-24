@@ -1,5 +1,6 @@
 package ru.job4j.stream;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -48,6 +49,14 @@ public class Analyze {
      * @return Возвращает список из объекта Tuple (название предмета и средний балл).
      */
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
+        return stream
+                .collect(Collectors.groupingBy(
+                        Pupil::getSubjects),
+                        LinkedHashMap::new,
+                        Collectors.averagingDouble()
+                )
+                .stream()
+        ))
         return List.of();
     }
 

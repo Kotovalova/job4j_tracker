@@ -50,13 +50,32 @@ public class Analyze {
      */
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
         return stream
+                .map(Pupil::getSubjects)
+                .flatMap(List::stream)
+                .collect(
+                        Collectors.groupingBy(Subject::getName)
+                .
+
+
+
+
+        /*, Collectors.toMap(Subject::getName, LinkedHashMap::new, Subject::getScore))
+                .stream()
+                .
+
+
+        LinkedHashMap::new, Subject::getScore)
+                .
+
+        /*return stream
                 .collect(Collectors.groupingBy(
-                        Pupil::getSubjects),
+                        Pupil::getSubjects,
+                                Collectors.averagingDouble(Pupil::getSubjects)
                         LinkedHashMap::new,
-                        Collectors.averagingDouble()
+
                 )
                 .stream()
-        ))
+        ))*/
         return List.of();
     }
 

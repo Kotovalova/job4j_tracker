@@ -66,7 +66,8 @@ public class Analyze {
     /**
      * Метод bestStudent
      * @param stream
-     * @return возвращает лучшего ученика. Лучшим считается ученик с наибольшим баллом по всем предметам.
+     * @return возвращает лучшего ученика.
+     * Лучшим считается ученик с наибольшим баллом по всем предметам.
      */
     public static Tuple bestStudent(Stream<Pupil> stream) {
         return stream
@@ -83,7 +84,8 @@ public class Analyze {
     /**
      * Метод bestSubject - возвращает предмет с наибольшим баллом для всех студентов.
      * @param stream
-     * @return Возвращает объект Tuple (имя предмета, сумма баллов каждого ученика по этому предмету)
+     * * @return Возвращает объект Tuple
+     * (имя предмета, сумма баллов каждого ученика по этому предмету)
      */
     public static Tuple bestSubject(Stream<Pupil> stream) {
         return stream

@@ -1,6 +1,5 @@
 package ru.job4j.stream;
 
-import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -79,7 +78,6 @@ public class Analyze {
                 .max(Comparator.comparingDouble(Tuple::getScore))
                 .orElse(null);
     }
-
 
     /**
      * Метод bestSubject - возвращает предмет с наибольшим баллом для всех студентов.

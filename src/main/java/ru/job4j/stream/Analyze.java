@@ -13,7 +13,7 @@ public class Analyze {
 
     /**
      * Метод averageScore вычисляет общий средний балл.
-     * @param stream
+     * @param stream входящий поток
      * @return общий средний балл.
      */
 
@@ -29,15 +29,14 @@ public class Analyze {
 
     /**
      * Метод averageScoreBySubject вычисляет средний балл ученика по его предметам.
-     * @param stream
+     * @param stream входящий поток
      * @return  Возвращает список из объекта Tuple (имя ученика и средний балл).
      */
     public static List<Tuple> averageScoreBySubject(Stream<Pupil> stream) {
         return stream
                 .map(pupil ->
                         new Tuple(pupil.getName(), Analyze.averageScore(
-                                List.of(pupil)
-                                        .stream()
+                                Stream.of(pupil)
                                 )
                         )
                 )
@@ -46,7 +45,7 @@ public class Analyze {
 
     /**
      * Метод averageScoreByPupil вычисляет средний балл по всем предметам для каждого ученика.
-     * @param stream
+     * @param stream входящий поток
      * @return Возвращает список из объекта Tuple (название предмета и средний балл).
      */
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
@@ -65,7 +64,7 @@ public class Analyze {
 
     /**
      * Метод bestStudent
-     * @param stream
+     * @param stream входящий поток
      * @return возвращает лучшего ученика.
      * Лучшим считается ученик с наибольшим баллом по всем предметам.
      */
@@ -85,7 +84,7 @@ public class Analyze {
      * Метод bestSubject - возвращает предмет с наибольшим баллом для всех студентов.
      * @param stream
      * * @return Возвращает объект Tuple
-     * (имя предмета, сумма баллов каждого ученика по этому предмету)
+     * Tuple (имя предмета, сумма баллов каждого ученика по этому предмету)
      */
     public static Tuple bestSubject(Stream<Pupil> stream) {
         return stream

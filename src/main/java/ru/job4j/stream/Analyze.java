@@ -1,5 +1,6 @@
 package ru.job4j.stream;
 
+import java.util.Comparator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -50,14 +51,16 @@ public class Analyze {
      */
     public static List<Tuple> averageScoreByPupil(Stream<Pupil> stream) {
         return stream
+                .map(Pupil::getSubjects)
+                .flatMap(List::stream)
                 .collect(Collectors.groupingBy(
-                        Pupil::getSubjects),
+                        Subject::getName,
                         LinkedHashMap::new,
-                        Collectors.averagingDouble()
-                )
+                        Collectors.averagingDouble(Subject::getScore)))
+                .entrySet()
                 .stream()
-        ))
-        return List.of();
+                .map(f -> new Tuple(f.getKey(), f.getValue()))
+                .collect(Collectors.toList());
     }
 
     /**
@@ -66,8 +69,17 @@ public class Analyze {
      * @return возвращает лучшего ученика. Лучшим считается ученик с наибольшим баллом по всем предметам.
      */
     public static Tuple bestStudent(Stream<Pupil> stream) {
-        return null;
+        return stream
+                .map(f -> new Tuple(
+                        f.getName(),
+                        f.getSubjects()
+                                .stream()
+                                .mapToInt(Subject::getScore)
+                                .sum()))
+                .max(Comparator.comparingDouble(Tuple::getScore))
+                .orElse(null);
     }
+
 
     /**
      * Метод bestSubject - возвращает предмет с наибольшим баллом для всех студентов.
@@ -75,6 +87,17 @@ public class Analyze {
      * @return Возвращает объект Tuple (имя предмета, сумма баллов каждого ученика по этому предмету)
      */
     public static Tuple bestSubject(Stream<Pupil> stream) {
-        return null;
+        return stream
+                .map(Pupil::getSubjects)
+                .flatMap(List::stream)
+                .collect(Collectors.groupingBy(
+                        Subject::getName,
+                        LinkedHashMap::new,
+                        Collectors.summingDouble(Subject::getScore)))
+                .entrySet()
+                .stream()
+                .map(f -> new Tuple(f.getKey(), f.getValue()))
+                .max(Comparator.comparingDouble(Tuple::getScore))
+                .orElse(null);
     }
 }
